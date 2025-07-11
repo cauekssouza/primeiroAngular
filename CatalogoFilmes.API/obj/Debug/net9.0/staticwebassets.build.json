@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "TGC5+Gk2oE62IjV0e7O/IHQt3nfMW5IhE+5mzJukqWI=",
+  "Source": "CatalogoFilmes.API",
+  "BasePath": "_content/CatalogoFilmes.API",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

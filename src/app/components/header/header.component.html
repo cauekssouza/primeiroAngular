@@ -1,0 +1,27 @@
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">
+        <h1>Catalogo</h1>
+      </div>
+      
+      <nav class="navigation">
+        <a href="#" class="nav-link active">Filmes</a>
+        <a href="#" class="nav-link">Favoritos</a>
+        <a href="#" class="nav-link">Adicionar</a>
+      </nav>
+
+      <div class="search-container">
+        <input 
+          type="text" 
+          placeholder="Pesquisar filmes..." 
+          [(ngModel)]="searchTerm"
+          (keyup.enter)="onSearch()"
+          class="search-input">
+        <button (click)="onSearch()" class="search-btn">
+          🔍
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

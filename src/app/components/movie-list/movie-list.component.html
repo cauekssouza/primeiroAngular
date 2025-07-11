@@ -1,0 +1,48 @@
+<div class="movie-list-container">
+  <div class="container">
+    <div class="list-header">
+      <h2>🎬 Catálogo de Filmes</h2>
+      <a routerLink="/adicionar" class="btn btn-primary">➕ Adicionar Filme</a>
+    </div>
+
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Carregando filmes...</p>
+    </div>
+
+    <div *ngIf="!loading && movies.length === 0" class="empty-state">
+      <h3>Nenhum filme encontrado</h3>
+      <p>Que tal adicionar o primeiro filme ao catálogo?</p>
+      <a routerLink="/adicionar" class="btn btn-primary">Adicionar Filme</a>
+    </div>
+
+    <div *ngIf="!loading && movies.length > 0" class="movies-grid">
+      <app-movie-card 
+        *ngFor="let movie of movies" 
+        [movie]="movie"
+        (editMovie)="onEditMovie($event)"
+        (deleteMovie)="onDeleteMovie($event)">
+      </app-movie-card>
+    </div>
+
+    <div *ngIf="totalPages > 1" class="pagination">
+      <button 
+        (click)="previousPage()" 
+        [disabled]="currentPage === 1"
+        class="btn btn-secondary">
+        ← Anterior
+      </button>
+      
+      <span class="page-info">
+        Página {{ currentPage }} de {{ totalPages }}
+      </span>
+      
+      <button 
+        (click)="nextPage()" 
+        [disabled]="currentPage === totalPages"
+        class="btn btn-secondary">
+        Próxima →
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,168 @@
+<div class="form-container">
+  <div class="form-header">
+    <h2>{{ isEditMode ? '✏️ Editar Filme' : '➕ Adicionar Novo Filme' }}</h2>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <p>{{ isEditMode ? 'Carregando filme...' : 'Salvando filme...' }}</p>
+  </div>
+
+ 
+  <div *ngIf="success" class="success">
+    <p>{{ success }}</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+
+  <form [formGroup]="movieForm" (ngSubmit)="onSubmit()" *ngIf="!loading" class="movie-form">
+    
+    
+    <div class="form-group">
+      <label for="titulo">Título *</label>
+      <input 
+        type="text" 
+        id="titulo" 
+        formControlName="titulo"
+        placeholder="Digite o título do filme"
+        [class.error]="isFieldInvalid('titulo')">
+      <div *ngIf="isFieldInvalid('titulo')" class="field-error">
+        {{ getFieldError('titulo') }}
+      </div>
+    </div>
+
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label for="ano">Ano *</label>
+        <input 
+          type="number" 
+          id="ano" 
+          formControlName="ano"
+          min="1900" 
+          max="2099"
+          [class.error]="isFieldInvalid('ano')">
+        <div *ngIf="isFieldInvalid('ano')" class="field-error">
+          {{ getFieldError('ano') }}
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="duracao">Duração (min) *</label>
+        <input 
+          type="time" 
+          id="duracao" 
+          formControlName="duracao"
+          min="1" 
+          max="500"
+          [class.error]="isFieldInvalid('duracao')">
+        <div *ngIf="isFieldInvalid('duracao')" class="field-error">
+          {{ getFieldError('duracao') }}
+        </div>
+      </div>
+    </div>
+
+    
+<div class="form-group">
+  <label class="form-label">Gênero</label>
+  <select formControlName="genero" class="form-input">
+    <option value="" disabled selected>Selecione um gênero</option>
+    <option *ngFor="let genero of generos" [value]="genero">{{ genero }}</option>
+  </select>
+</div>
+
+
+
+
+
+
+      <div *ngIf="isFieldInvalid('genero')" class="field-error">
+        {{ getFieldError('genero') }}
+      </div>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="diretor">Diretor *</label>
+      <input 
+        type="text" 
+        id="diretor" 
+        formControlName="diretor"
+        placeholder="Nome do diretor"
+        [class.error]="isFieldInvalid('diretor')">
+      <div *ngIf="isFieldInvalid('diretor')" class="field-error">
+        {{ getFieldError('diretor') }}
+      </div>
+    </div>
+
+    
+    <div class="form-group">
+      <label for="dataLancamento">Data de Lançamento *</label>
+      <input 
+        type="date" 
+        id="dataLancamento" 
+        formControlName="dataLancamento"
+        [class.error]="isFieldInvalid('dataLancamento')">
+      <div *ngIf="isFieldInvalid('dataLancamento')" class="field-error">
+        {{ getFieldError('dataLancamento') }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="avaliacao">Avaliação *</label>
+      <div class="rating-container">
+        <select 
+          id="avaliacao" 
+          formControlName="avaliacao"
+          [class.error]="isFieldInvalid('avaliacao')">
+          <option value="1">⭐ 1 estrela</option>
+          <option value="2">⭐⭐ 2 estrelas</option>
+          <option value="3">⭐⭐⭐ 3 estrelas</option>
+          <option value="4">⭐⭐⭐⭐ 4 estrelas</option>
+          <option value="5">⭐⭐⭐⭐⭐ 5 estrelas</option>
+        </select>
+      </div>
+      <div *ngIf="isFieldInvalid('avaliacao')" class="field-error">
+        {{ getFieldError('avaliacao') }}
+      </div>
+    </div>
+
+    
+    <div *ngIf="movieForm.get('posterUrl')?.value" class="poster-preview">
+    <label class="form-label">Pré-visualização do Poster:</label>
+  <img 
+    [src]="movieForm.get('posterUrl')?.value" 
+    alt="Poster do filme" 
+    class="poster-image"
+    (error)="posterErro = true"
+    *ngIf="!posterErro" />
+  <p *ngIf="posterErro" class="field-error">URL da imagem inválida</p>
+</div>
+
+
+  
+    <div class="form-group">
+      <label for="sinopse">Sinopse</label>
+      <textarea 
+        id="sinopse" 
+        formControlName="sinopse"
+        rows="4"
+        placeholder="Descreva a história do filme..."
+        [class.error]="isFieldInvalid('sinopse')"></textarea>
+      <div *ngIf="isFieldInvalid('sinopse')" class="field-error">
+        {{ getFieldError('sinopse') }}
+      </div>
+    </div>
+
+    <!-- Botões -->
+    <div class="form-actions">
+      <button type="button" (click)="onCancel()" class="cancel-btn">
+        ❌ Cancelar
+      </button>
+      <button type="submit" [disabled]="movieForm.invalid || loading" class="submit-btn">
+        {{ isEditMode ? '💾 Atualizar' : '➕ Adicionar' }} Filme
+      </button>
+    </div>
+  </form>
+</div>

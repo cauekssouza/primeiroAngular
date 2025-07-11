@@ -1,0 +1,29 @@
+<div class="movie-card">
+  <div class="movie-poster">
+    <img 
+      [src]="movie.posterUrl || '/assets/no-poster.jpg'" 
+      [alt]="movie.titulo"
+      class="poster-image">
+  </div>
+  
+  <div class="movie-info">
+    <h3 class="movie-title">{{ movie.titulo }}</h3>
+    <p class="movie-year">{{ movie.ano }}</p>
+    <p class="movie-genre">{{ movie.genero }}</p>
+    <p class="movie-director">Dir: {{ movie.diretor }}</p>
+    
+    <div class="movie-rating">
+      <span class="stars">
+        <span *ngFor="let star of getStars(movie.avaliacao)">{{ star }}</span>
+      </span>
+      <span class="rating-text">({{ movie.avaliacao }}/5)</span>
+    </div>
+    
+    <p class="movie-synopsis">{{ movie.sinopse | slice:0:100 }}...</p>
+    
+    <div class="movie-actions">
+      <button (click)="onEdit()" class="btn btn-edit">✏️ Editar</button>
+      <button (click)="onDelete()" class="btn btn-delete">🗑️ Excluir</button>
+    </div>
+  </div>
+</div>
