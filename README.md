@@ -12,8 +12,6 @@ HTML5 / CSS3
 
 Reactive Forms
 
-Bootstrap ou Tailwind (dependendo do que foi usado)
-
 Consumo de API RESTful
 
 Backend:
