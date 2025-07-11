@@ -8,8 +8,6 @@ Angular
 
 TypeScript
 
-HTML5 / CSS3
-
 Reactive Forms
 
 Consumo de API RESTful
