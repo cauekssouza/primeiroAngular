@@ -19,7 +19,7 @@ namespace CatalogoFilmes.API.Controllers
             _logger = logger;
         }
 
-        // GET: api/movies
+        
         [HttpGet]
         public async Task<ActionResult<MovieResponseDto>> GetMovies(
             int page = 1, 
@@ -30,7 +30,7 @@ namespace CatalogoFilmes.API.Controllers
             {
                 var query = _context.Movies.AsQueryable();
 
-                // Filtro de busca
+                
                 if (!string.IsNullOrEmpty(search))
                 {
                     query = query.Where(m => 
@@ -66,7 +66,7 @@ namespace CatalogoFilmes.API.Controllers
             }
         }
 
-        // GET: api/movies/5
+       
         [HttpGet("{id}")]
         public async Task<ActionResult<Movie>> GetMovie(int id)
         {
@@ -121,7 +121,7 @@ namespace CatalogoFilmes.API.Controllers
             }
         }
 
-        // PUT: api/movies/5
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMovie(int id, MovieDto movieDto)
         {
@@ -163,7 +163,7 @@ namespace CatalogoFilmes.API.Controllers
             }
         }
 
-        // DELETE: api/movies/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovie(int id)
         {
@@ -187,7 +187,7 @@ namespace CatalogoFilmes.API.Controllers
             }
         }
 
-        // GET: api/movies/search
+        
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<Movie>>> SearchMovies(string search)
         {
