@@ -19,7 +19,7 @@ namespace CatalogoFilmes.API.Controllers
             _logger = logger;
         }
 
-        // GET: api/movies
+        
         [HttpGet]
         public async Task<ActionResult<MovieResponseDto>> GetMovies(
             int page = 1, 
@@ -66,7 +66,7 @@ namespace CatalogoFilmes.API.Controllers
             }
         }
 
-        // GET: api/movies/5
+        
         [HttpGet("{id}")]
         public async Task<ActionResult<Movie>> GetMovie(int id)
         {
@@ -88,40 +88,43 @@ namespace CatalogoFilmes.API.Controllers
             }
         }
 
-        // POST: api/movies
-        [HttpPost]
-        public async Task<ActionResult<Movie>> CreateMovie(MovieDto movieDto)
+        
+       [HttpPost]
+public async Task<ActionResult<Movie>> CreateMovie([FromBody] MovieDto movieDto)
+{
+    try
+    {
+        // Mapeando os dados do DTO para a entidade Movie
+        var movie = new Movie
         {
-            try
-            {
-                var movie = new Movie
-                {
-                    Titulo = movieDto.Titulo,
-                    Ano = movieDto.Ano,
-                    Genero = movieDto.Genero,
-                    Diretor = movieDto.Diretor,
-                    Sinopse = movieDto.Sinopse,
-                    PosterUrl = movieDto.PosterUrl,
-                    Avaliacao = movieDto.Avaliacao,
-                    DataLancamento = movieDto.DataLancamento,
-                    Duracao = movieDto.Duracao,
-                    DataCriacao = DateTime.UtcNow,
-                    DataAtualizacao = DateTime.UtcNow
-                };
+            Titulo = movieDto.Titulo,
+            Ano = movieDto.Ano,
+            Genero = movieDto.Genero,
+            Diretor = movieDto.Diretor,
+            Sinopse = movieDto.Sinopse,
+            PosterUrl = movieDto.PosterUrl,
+            Avaliacao = movieDto.Avaliacao,
+            DataLancamento = movieDto.DataLancamento,
+            Duracao = movieDto.Duracao,
+            DataCriacao = DateTime.UtcNow,
+            DataAtualizacao = DateTime.UtcNow
+        };
 
-                _context.Movies.Add(movie);
-                await _context.SaveChangesAsync();
+        _context.Movies.Add(movie);
+        await _context.SaveChangesAsync();
 
-                return CreatedAtAction(nameof(GetMovie), new { id = movie.Id }, movie);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao criar filme");
-                return StatusCode(500, "Erro interno do servidor");
-            }
-        }
+        
+        return CreatedAtAction(nameof(GetMovie), new { id = movie.Id }, movie);
+    }
+    catch (Exception ex)
+    {
+        _logger.LogError(ex, "Erro ao criar filme: {Message}", ex.Message);
+        return StatusCode(500, "Erro ao criar filme");
+    }
+}
 
-        // PUT: api/movies/5
+
+        
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMovie(int id, MovieDto movieDto)
         {
@@ -163,7 +166,7 @@ namespace CatalogoFilmes.API.Controllers
             }
         }
 
-        // DELETE: api/movies/5
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMovie(int id)
         {
@@ -187,7 +190,7 @@ namespace CatalogoFilmes.API.Controllers
             }
         }
 
-        // GET: api/movies/search
+        
         [HttpGet("search")]
         public async Task<ActionResult<IEnumerable<Movie>>> SearchMovies(string search)
         {

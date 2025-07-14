@@ -15,7 +15,7 @@ namespace CatalogoFilmes.API.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Configurações da entidade Movie
+            
             modelBuilder.Entity<Movie>(entity =>
             {
                 entity.HasKey(e => e.Id);
@@ -27,7 +27,7 @@ namespace CatalogoFilmes.API.Data
                 entity.HasIndex(e => e.Ano);
             });
 
-            // Dados iniciais (Seed)
+            
             modelBuilder.Entity<Movie>().HasData(
                 new Movie
                 {

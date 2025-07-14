@@ -129,16 +129,7 @@
     </div>
 
     
-    <div *ngIf="movieForm.get('posterUrl')?.value" class="poster-preview">
-    <label class="form-label">Pré-visualização do Poster:</label>
-  <img 
-    [src]="movieForm.get('posterUrl')?.value" 
-    alt="Poster do filme" 
-    class="poster-image"
-    (error)="posterErro = true"
-    *ngIf="!posterErro" />
-  <p *ngIf="posterErro" class="field-error">URL da imagem inválida</p>
-</div>
+   
 
 
   

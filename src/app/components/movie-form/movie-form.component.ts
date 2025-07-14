@@ -58,19 +58,16 @@ import { MovieService, Movie } from "../../services/movie.service";
           <div *ngIf="movieForm.get('posterUrl')?.value" class="poster-preview">
             <label class="form-label">Pré-visualização do Poster:</label>
             <img 
-              [src]="movieForm.get('posterUrl')?.value" 
-              alt="Poster do filme" 
-              class="poster-image"
-              (error)="posterErro = true"
-              *ngIf="!posterErro"
-            />
+  [src]="movieForm.get('posterUrl')?.value" 
+  alt="Poster do filme" 
+  class="poster-image"
+  (error)="posterErro = true"
+  *ngIf="!posterErro && movieForm.get('posterUrl')?.value" />
+
             <p *ngIf="posterErro" class="field-error">URL da imagem inválida</p>
           </div>
 
-          <div class="form-group">
-            <label class="form-label">URL do Poster (opcional)</label>
-            <input type="url" formControlName="posterUrl" class="form-input" />
-          </div>
+         
 
           <div class="form-group">
             <label class="form-label">Sinopse</label>
@@ -139,10 +136,11 @@ export class MovieFormComponent implements OnInit {
       this.loadMovie();
     }
 
-    this.movieForm.get('posterUrl')?.valueChanges.subscribe(() => {
-      this.posterErro = false;
-    });
-  }
+    this.movieForm.get('posterUrl')?.valueChanges.subscribe(value => {
+  console.log('posterUrl mudou para:', value);
+  this.posterErro = false;
+});
+}
 
   loadMovie(): void {
     if (this.movieId) {
@@ -169,38 +167,47 @@ export class MovieFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.movieForm.valid) {
-      this.loading = true;
-      this.error = null;
+  if (this.movieForm.valid) {
+    this.loading = true;
+    this.error = null;
 
-      const movieData = {
-        ...this.movieForm.value,
-        dataLancamento: new Date(this.movieForm.value.dataLancamento),
-      };
+    const movieData = {
+      ...this.movieForm.value,
+      dataLancamento: new Date(this.movieForm.value.dataLancamento),
+    };
 
-      if (this.isEditing && this.movieId) {
-        this.movieService.updateMovie(this.movieId, movieData).subscribe({
-          next: () => {
-            this.router.navigate(['/filmes']);
-          },
-          error: () => {
-            this.error = 'Erro ao atualizar filme';
-            this.loading = false;
-          },
-        });
-      } else {
-        this.movieService.createMovie(movieData).subscribe({
-          next: () => {
-            this.router.navigate(['/filmes']);
-          },
-          error: () => {
-            this.error = 'Erro ao criar filme';
-            this.loading = false;
-          },
-        });
-      }
+    if (this.isEditing && this.movieId) {
+      this.movieService.updateMovie(this.movieId, movieData).subscribe({
+        next: () => {
+          this.router.navigate(['/filmes']);
+        },
+        error: () => {
+          this.error = 'Erro ao atualizar filme';
+          this.loading = false;
+        },
+      });
+    } else {
+      
+      this.movieService.createMovie(movieData).subscribe({
+        next: (createdMovie) => {
+          this.loading = false;
+          this.movieForm.patchValue({ posterUrl: createdMovie.posterUrl });
+          alert('Filme adicionado com sucesso!');
+           this.movieForm.reset();
+    this.movieForm.patchValue({ posterUrl: createdMovie.posterUrl });
+        },
+        error: () => {
+          this.error = 'Erro ao criar filme';
+          this.loading = false;
+        },
+        
+      });
     }
   }
+}
+
+
+
 
   goBack(): void {
     this.router.navigate(['/filmes']);

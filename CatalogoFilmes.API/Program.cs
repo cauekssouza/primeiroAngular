@@ -5,11 +5,11 @@ using CatalogoFilmes.API.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
-// Configuração do Swagger
+
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo 
@@ -20,12 +20,12 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Database - usando SQLite para facilitar o desenvolvimento
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? 
                      "Data Source=catalogo_filmes.db"));
 
-// ✅ CORS - Configuração mais permissiva
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>
@@ -38,7 +38,7 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -49,10 +49,12 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-// ✅ CORS deve vir PRIMEIRO
+
 app.UseCors("AllowAll");
 
-// ✅ Middleware para debug
+
+
+
 app.Use(async (context, next) =>
 {
     Console.WriteLine($"🌐 {context.Request.Method} {context.Request.Path} - Origin: {context.Request.Headers["Origin"]}");
@@ -64,7 +66,7 @@ app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 
-// Garantir que o banco de dados seja criado
+
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -72,7 +74,7 @@ using (var scope = app.Services.CreateScope())
     {
         context.Database.EnsureCreated();
         
-        // Adicionar dados de teste se não houver filmes
+        
         if (!context.Movies.Any())
         {
             var filmesTeste = new List<Movie>
