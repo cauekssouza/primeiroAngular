@@ -53,8 +53,11 @@ if (app.Environment.IsDevelopment())
 app.UseCors("AllowAll");
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> c377c0eebaa2aa6099a228ba846b1031567841ad
 app.Use(async (context, next) =>
 {
     Console.WriteLine($"🌐 {context.Request.Method} {context.Request.Path} - Origin: {context.Request.Headers["Origin"]}");

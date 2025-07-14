@@ -30,7 +30,7 @@ namespace CatalogoFilmes.API.Controllers
             {
                 var query = _context.Movies.AsQueryable();
 
-                // Filtro de busca
+                
                 if (!string.IsNullOrEmpty(search))
                 {
                     query = query.Where(m => 
@@ -66,7 +66,11 @@ namespace CatalogoFilmes.API.Controllers
             }
         }
 
+<<<<<<< HEAD
         
+=======
+       
+>>>>>>> c377c0eebaa2aa6099a228ba846b1031567841ad
         [HttpGet("{id}")]
         public async Task<ActionResult<Movie>> GetMovie(int id)
         {
@@ -123,7 +127,10 @@ public async Task<ActionResult<Movie>> CreateMovie([FromBody] MovieDto movieDto)
     }
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> c377c0eebaa2aa6099a228ba846b1031567841ad
         
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateMovie(int id, MovieDto movieDto)

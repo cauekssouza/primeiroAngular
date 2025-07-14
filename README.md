@@ -1,59 +1,53 @@
-# CatalogoFilmes
+🎬 Projeto: Catálogo de Filmes (Angular + .NET)
+Descrição
+Este projeto é uma aplicação web desenvolvida com Angular no frontend e .NET no backend, que permite gerenciar um catálogo de filmes. A aplicação permite cadastrar, editar, visualizar e excluir filmes, oferecendo uma interface interativa para os usuários e uma API robusta para manipulação dos dados.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.12.
+🔧 Tecnologias Utilizadas
+Frontend:
+Angular
 
-## Development server
+TypeScript
 
-To start a local development server, run:
+Reactive Forms
 
-```bash
-ng serve
-```
+Consumo de API RESTful
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Backend:
+.NET 6+
 
-## Code scaffolding
+ASP.NET Web API
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Entity Framework Core
 
-```bash
-ng generate component component-name
-```
+SQL Server ou SQLite (dependendo da base usada)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+CORS e integração com Angular
 
-```bash
-ng generate --help
-```
+✨ Funcionalidades
+✅ Cadastro de filmes com:
 
-## Building
+Título
 
-To build the project run:
+Diretor
 
-```bash
-ng build
-```
+Ano
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Duração
 
-## Running unit tests
+Gênero (seleção)
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Avaliação (1 a 10)
 
-```bash
-ng test
-```
+Data de lançamento
 
-## Running end-to-end tests
+URL de poster com pré-visualização
 
-For end-to-end (e2e) testing, run:
+Sinopse
 
-```bash
-ng e2e
-```
+✅ Edição e exclusão de filmes
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+✅ Visualização de detalhes dos filmes
 
-## Additional Resources
+✅ Interface reativa e validada
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+✅ Integração completa com a API .NET
